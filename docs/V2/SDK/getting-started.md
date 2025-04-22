@@ -66,6 +66,8 @@ In your project create a new CS file and call it your module's name. We'll use `
 
 At the very least you need the 3 attributes listed below. They indicate the display title, display description, and type of module you're making. You also need the class to extend the `Module` class from the SDK.
 ```csharp
+using VRCOSC.App.SDK.Modules;
+
 [ModuleTitle("My Test Module")]
 [ModuleDescription("This is my test module")]
 [ModuleType(ModuleType.Generic)]
