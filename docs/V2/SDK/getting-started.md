@@ -28,21 +28,28 @@ Secondly, right click on the project and go into the properties. Inside the Appl
 
 Next, right click on your project's csproj file and click edit. Replace the contents with:
 ```xml
-<PropertyGroup>
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  
+  <!-- Properties -->
+  <PropertyGroup>
     <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <WindowsSdkPackageVersion>10.0.26100.1</WindowsSdkPackageVersion>
-</PropertyGroup>
+  </PropertyGroup>
 
-<ItemGroup>
+  <!-- NuGet dependencies -->
+  <ItemGroup>
     <PackageReference Include="VolcanicArts.VRCOSC.SDK" Version="2025.212.0" />
-</ItemGroup>
+  </ItemGroup>
 
-<!--> This is a post build event that copies your module assembly to the local package directory for VRCOSC <-->
-<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <!-- Post‑build copy to local VRCOSC packages folder -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;%25appdata%25\VRCOSC\packages\local\$(TargetName).dll&quot;"/>
-</Target>
+  </Target>
+
+</Project>
 ```
 
 The specific windows build of .NET 8.0 and the SDK is required for VRCOSC's SDK due to certain Windows integrations, and for people building on slightly different versions of Windows.
